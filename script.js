@@ -3,7 +3,7 @@ const plantasData = [
         nombre: "Albahaca", nombreMaya: "Kakaltuum", equipo: "Equipo 6", tipo: "respiratorio", 
         cientifico: "Ocimum basilicum",
         desc: "Té para aliviar sofocación o estrés. Se recomienda una taza en ayunas y otra antes de dormir. (Precaución: No durante el embarazo).",
-        imagen: "/imagenes-web/Albahaca.png"
+        imagen: "https://www.publicdomainpictures.net/es/view-image.php?image=3245&picture=albahaca-fondo
     },
     { 
         nombre: "Caña india", nombreMaya: "sak'ab o jíim", equipo: "Equipo N/A", tipo: "dolor", 

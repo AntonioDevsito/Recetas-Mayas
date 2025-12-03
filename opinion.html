@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opinión - Recetario Mayas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/opinion.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div id="sidebar-container"></div>
+    
+    <main class="main-content">
+        <!-- Botón menú movil / escritorio -->
+        <div class="mobile-header">
+            <button id="menu-toggle"><i class="ph ph-list"></i></button>
+            
+        </div>
+
+        <h2 class="section-title">Tu Opinión Importa</h2>
+        <div class="feedback-grid">
+            <div class="feedback-card">
+                <h3>¿Qué aprendiste hoy?</h3>
+                <textarea placeholder="Cuéntanos qué te pareció el sitio..."></textarea>
+                <button class="btn-secondary">Enviar Opinión</button>
+            </div>
+            <div class="feedback-card info-card">
+                <h3>Preguntas de Reflexión</h3>
+                <ul id="preguntas-dinamicas"></ul>
+            </div>
+        </div>
+    </main>
+
+    <script>window.pageScript='js/opinion.js';</script>
+    <script src="js/include-sidebar.js"></script>
+</body>
+</html>

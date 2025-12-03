@@ -1,0 +1,999 @@
+/* =========================================
+   1. VARIABLES Y TEMA (PALETA MAYA VIBRANTE)
+   ========================================= */
+:root {
+    /* --- Colores Principales --- */
+    --primary-color: #008F5D;       /* Verde Selva (Principal) */
+    --accent-color: #00BCD4;        /* Turquesa Jade (Acentos) */
+    --pop-color: #FFC107;           /* Ámbar/Oro (Botones y Focos) */
+    --coral-color: #FF5722;         /* Coral (Detalles cálidos) */
+
+    /* --- Fondos y Textos --- */
+    --bg-main: #F8FAF9;             /* Blanco roto fresco */
+    --bg-card: #FFFFFF;             /* Blanco puro */
+    --bg-sidebar: #FFFFFF;
+    
+    --text-primary: #1A3C34;        /* Verde muy oscuro (Casi negro) */
+    --text-secondary: #546E66;      /* Verde grisáceo */
+    --text-light: #8FA39D;
+
+    /* --- UI Elements --- */
+    --border-color: #E0E8E5;
+    --shadow-sm: 0 4px 12px rgba(0, 143, 93, 0.08);
+    --shadow-md: 0 8px 24px rgba(0, 143, 93, 0.12);
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    
+    /* --- Sidebar Layout --- */
+    --sidebar-width: 280px;
+}
+
+body.dark-mode {
+    /* --- Paleta Modo Oscuro --- */
+    --primary-color: #4DB6AC;       
+    --accent-color: #26C6DA;       
+    --pop-color: #FFD54F;           
+    --coral-color: #FF8A65;
+
+    --bg-main: #121816;             
+    --bg-card: #1E2A27;             
+    --bg-sidebar: #192220;
+
+    --text-primary: #E0F2F1;        
+    --text-secondary: #B0BEC5;
+    --text-light: #78909C;
+
+    --border-color: #2E423D;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================
+   2. RESET Y ESTILOS GLOBALES
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden; 
+}
+
+/* =========================================
+   3. LAYOUT & SIDEBAR
+   ========================================= */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    z-index: 1000;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+}
+
+.mobile-header {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+    transition: left 0.3s ease;
+}
+
+#menu-toggle {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 0;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+body.sidebar-hidden .main-content {
+    margin-left: 0;
+}
+
+body.sidebar-hidden #sidebar {
+    transform: translateX(-100%);
+}
+
+/* =========================================
+   4. ESTILOS INTERNOS DEL SIDEBAR
+   ========================================= */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header .ti-logo {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.sidebar-header .highlight {
+    color: var(--accent-color);
+    font-weight: 900;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1; 
+}
+
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a i {
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    transition: color 0.3s ease;
+}
+
+.nav-links li a.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 143, 93, 0.3);
+}
+
+.nav-links li a.active i {
+    color: white;
+}
+
+/* --- Footer y Controles (Switches) --- */
+.sidebar-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* 4.1. CONTROL DE TEMA (MODO OSCURO) */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px; 
+    height: 30px;
+    background-color: var(--bg-card); 
+    border-radius: 30px;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent; 
+    transition: .4s;
+}
+
+.theme-slider:before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--pop-color);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.theme-icon-sun, .theme-icon-moon {
+    position: absolute;
+    font-size: 1.1rem;
+    line-height: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.4s ease, color 0.4s ease;
+}
+
+.theme-icon-sun {
+    right: 6px;
+    color: var(--pop-color);
+    opacity: 1;
+}
+
+.theme-icon-moon {
+    left: 6px;
+    color: white;
+    opacity: 0;
+}
+
+#theme-mode-toggle:checked + .theme-slider {
+    background-color: var(--primary-color); 
+    border-color: var(--primary-color);
+}
+
+#theme-mode-toggle:checked + .theme-slider:before {
+    transform: translateX(30px);
+    background-color: var(--accent-color);
+}
+
+#theme-mode-toggle:checked + .theme-slider .theme-icon-sun {
+    opacity: 0;
+}
+
+#theme-mode-toggle:checked + .theme-slider .theme-icon-moon {
+    opacity: 1;
+}
+
+
+/* 4.2. CONTROL DE IDIOMA (TRADUCCIÓN) */
+.lang-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-label {
+    font-weight: 700;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    width: 20px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.lang-switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+}
+
+.lang-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.lang-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    touch-action: manipulation; /* MEJORA EL MANEJO TÁCTIL EN MÓVIL */
+    -webkit-tap-highlight-color: transparent; /* Elimina el resaltado en iOS */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color); 
+    transition: .4s;
+    border-radius: 25px;
+    /* Aumentar el área de toque en móviles */
+    padding: 2px;
+}
+
+.lang-switch .slider:before {
+    content: "";
+    position: absolute;
+    height: 17px;
+    width: 17px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--pop-color); 
+    transition: .4s;
+    border-radius: 50%;
+}
+
+#lang-toggle:checked + .slider {
+    background-color: var(--primary-color); 
+}
+
+#lang-toggle:checked + .slider:before {
+    transform: translateX(20px);
+    background-color: white; 
+}
+
+/* Cambio de color de etiquetas ES/MY al activar */
+#lang-toggle:checked ~ .lang-label:last-child {
+    color: var(--primary-color);
+}
+.lang-control .lang-label:first-child {
+    color: var(--pop-color);
+}
+#lang-toggle:checked ~ .lang-label:first-child {
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   5. HERO SECTION
+   ========================================= */
+.hero {
+    padding: 6rem 2rem 4rem 2rem;
+    background: linear-gradient(135deg, var(--bg-main) 0%, rgba(0, 143, 93, 0.08) 100%);
+    text-align: center;
+}
+
+.hero-text {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   6. SECCIÓN DE DESCARGA (CTA)
+   ========================================= */
+.cta-download-section {
+    padding: 0 2rem 3rem 2rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+.cta-banner {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    width: 100%;
+    max-width: 900px;
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 15px 35px rgba(0, 143, 93, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-banner::after {
+    content: '';
+    position: absolute;
+    right: -50px;
+    top: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cta-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-icon i {
+    font-size: 3.5rem;
+    color: var(--pop-color);
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+.cta-text h2 {
+    color: white;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.cta-text p {
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.btn-download-pop {
+    background-color: var(--pop-color);
+    color: #263238;
+    font-weight: 800;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-download-pop:hover {
+    transform: translateY(-4px);
+    background-color: white;
+    color: var(--primary-color);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* =========================================
+   7. BUSCADOR Y FILTROS
+   ========================================= */
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.search-box, .filter-box {
+    position: relative;
+    flex: 1;
+    min-width: 280px;
+}
+
+.search-box input, .filter-box select {
+    width: 100%;
+    padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+    border-radius: var(--border-radius-md);
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    appearance: none; 
+    box-shadow: var(--shadow-sm);
+}
+
+.search-box i, .filter-box i {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    pointer-events: none;
+}
+
+.filter-box::after {
+    content: '▼';
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* =========================================
+   8. CATÁLOGO Y TARJETAS
+   ========================================= */
+.catalog-section {
+    padding: 4rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-primary);
+}
+
+.section-title i {
+    color: var(--primary-color);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.plant-card {
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+}
+
+.plant-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+}
+
+.plant-img-box {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.plant-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.plant-team-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.plant-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.plant-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.plant-cat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.plant-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    --webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+/* =========================================
+   9. RESPONSIVE / MOBILE
+   ========================================= */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+    
+    #sidebar {
+        transform: translateX(-100%);
+        padding: 1.5rem 1rem;
+    }
+    
+    #sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .cta-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+        gap: 2rem;
+    }
+    .cta-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .btn-download-pop {
+        width: 100%;
+        justify-content: center;
+    }
+    .cta-download-section {
+        padding: 0 1rem 3rem 1rem;
+    }
+
+    .search-container {
+        padding: 0 1rem;
+        gap: 0.5rem;
+        flex-direction: column;
+    }
+    
+    .search-box, .filter-box {
+        min-width: unset;
+    }
+    
+    /* Mejorar el área táctil de los switches en móvil */
+    .lang-switch, .theme-switch {
+        min-height: 44px; /* Tamaño mínimo recomendado para elementos táctiles */
+        display: flex;
+        align-items: center;
+    }
+    
+    .sidebar-footer {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+}
+/* =========================================
+   8. DETALLE DE RECETA / INFO.HTML (MEJORADO)
+   ========================================= */
+
+/* --- Layout del Contenedor Principal (Ajustado al Body/Sidebar) --- */
+/* Esta sección asegura que el contenido se centre y tenga padding, 
+   similar a cómo .main-content maneja su área. */
+main.container {
+    max-width: 1300px; /* Un poco más de espacio */
+    margin: 0 auto;
+    padding: 32px;
+    min-height: 100vh;
+    padding-top: 50px; /* Espacio superior para compensar si no está el mobile-header */
+}
+
+/* Títulos y Enlaces de Navegación */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 24px;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+    padding-left: 8px;
+}
+
+.back-link:hover {
+    color: var(--primary-color);
+}
+
+.title {
+    font-size: 3rem; /* Más prominente */
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 32px;
+    line-height: 1.1;
+}
+
+/* --------------------------------------
+   TARJETA PRINCIPAL DE LA RECETA
+   -------------------------------------- */
+.recipe-card {
+    display: flex; 
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    /* Sombra más profunda y cálida */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.05); 
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Columna de la Imagen */
+.recipe-card .media {
+    flex-basis: 45%; /* La imagen toma un poco más de espacio */
+    min-width: 350px;
+    max-height: 550px;
+    overflow: hidden;
+}
+
+.recipe-card .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Columna del Contenido */
+.recipe-card .content {
+    flex-basis: 55%;
+    padding: 40px; /* Mayor padding */
+}
+
+.summary {
+    font-size: 1.15rem; /* Fuente ligeramente más grande */
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 32px;
+}
+
+/* --------------------------------------
+   CONTROLES Y BOTONES
+   -------------------------------------- */
+.controls {
+    display: flex;
+    gap: 16px; /* Mayor separación */
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.controls button {
+    padding: 12px 24px;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+#toggle-ingredients {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+#toggle-ingredients:hover {
+    background-color: color-mix(in srgb, var(--primary-color) 90%, black);
+    transform: translateY(-2px);
+}
+
+#print-btn {
+    background-color: var(--accent-color);
+    color: white;
+}
+#print-btn:hover {
+    background-color: color-mix(in srgb, var(--accent-color) 90%, black);
+    transform: translateY(-2px);
+}
+
+#fav-btn {
+    background: none;
+    color: var(--coral-color);
+    border-color: var(--coral-color);
+}
+
+#fav-btn:hover:not(.fav) {
+    background-color: color-mix(in srgb, var(--coral-color) 10%, var(--bg-card));
+}
+
+/* Estado de Favorito Activo */
+#fav-btn.fav, #fav-btn[aria-pressed="true"] {
+    background-color: var(--coral-color);
+    color: white;
+    transform: scale(1.05); /* Ligeramente más grande */
+    box-shadow: 0 4px 8px rgba(255, 87, 34, 0.4);
+}
+
+/* --------------------------------------
+   PANEL DE DETALLES (COLLAPSIBLE)
+   -------------------------------------- */
+.plant-details {
+    overflow: hidden;
+    max-height: 2000px;
+    opacity: 1;
+    padding-top: 1.5rem;
+    transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                opacity 0.5s ease-in, 
+                padding 0.5s ease-in;
+}
+
+.plant-details.hidden {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+    transition: max-height 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53), 
+                opacity 0.3s ease-out, 
+                padding 0.5s ease-out;
+}
+
+.detail-group {
+    margin-bottom: 40px;
+}
+
+.detail-group h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color); /* Usar el color primario para la sección principal */
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--accent-color); /* Separador más notorio */
+}
+
+#recipe-title-detail {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.detail-group h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* Estilos de Listas */
+.detail-group ul, .detail-group ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Lista de Características (Plant Features) */
+#plant-features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+#plant-features-list li i {
+    color: var(--pop-color); /* Usar pop color para los iconos */
+    font-size: 1.3rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* Lista de Preparación (Pasos) - Mejorado con línea de tiempo visual */
+#recipe-steps-list {
+    counter-reset: step-counter;
+    border-left: 2px dashed var(--border-color); /* Línea punteada de guía */
+    padding-left: 20px;
+}
+#recipe-steps-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+#recipe-steps-list li::before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    position: absolute;
+    left: -14px; /* Mueve el número sobre la línea punteada */
+    top: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Caja de Advertencia (Precauciones) - Más impactante */
+.warning-box {
+    background-color: color-mix(in srgb, var(--coral-color) 8%, var(--bg-main));
+    border: 1px solid color-mix(in srgb, var(--coral-color) 40%, transparent);
+    border-left: 6px solid var(--coral-color);
+    padding: 20px;
+    border-radius: var(--border-radius-md);
+    margin-top: 30px;
+}
+
+.warning-box h3 {
+    color: var(--coral-color);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+}
+
+.warning-box ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+/* =========================================
+   8.1 DETALLE DE RECETA - DARK MODE
+   ========================================= */
+
+body.dark-mode .recipe-card {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode #recipe-steps-list {
+    border-left: 2px dashed var(--dark-border-color); 
+}
+
+body.dark-mode .warning-box {
+    background-color: color-mix(in srgb, var(--coral-color) 10%, var(--bg-main));
+    border-color: var(--coral-color);
+}
+

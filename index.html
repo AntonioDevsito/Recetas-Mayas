@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetario Maya - Sabiduría Ancestral</title>
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="sidebar-container"></div>
+
+    <main class="main-content">
+        
+        <div class="mobile-header">
+            <button id="menu-toggle" aria-label="Abrir menú">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+
+        <section id="inicio" class="hero">
+            <div class="hero-text">
+                <h1 data-translate="heroTitle">Sabiduría Ancestral: El legado Curativo de la Tierra Maya</h1>
+                <p data-translate="heroSubtitle">Conocimiento milenario para la salud. El poder curativo de las plantas.</p>
+            </div>
+        </section>
+
+        <section class="cta-download-section">
+            <div class="cta-banner">
+                <div class="cta-content">
+                    <div class="cta-icon">
+                        <i class="ph ph-book-open-text"></i>
+                    </div>
+                    <div class="cta-text">
+                        <h2 data-translate="ctaTitle">¡Descarga el Recetario Maya Completo!</h2>
+                        <p data-translate="ctaSubtitle">Lleva contigo todos los secretos, dosis y preparaciones en un práctico libro digital.</p>
+                    </div>
+                </div>
+                <a href="imagenes-web/albahaca.jpg" class="btn-download-pop" download aria-label="Descargar libro PDF">
+                    <i class="ph ph-download-simple"></i>
+                    <span data-translate="ctaButton">Descargar PDF Gratuito</span>
+                </a>
+            </div>
+        </section>
+
+        <div class="search-container">
+            <div class="search-box">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" id="buscador" data-translate="searchPlaceholder" placeholder="Buscar planta o equipo (ej. Albahaca)..." aria-label="Buscar plantas">
+            </div>
+            <div class="filter-box">
+                <i class="ph ph-funnel"></i>
+                <select id="filtro-enfermedad" aria-label="Filtrar por uso medicinal">
+                    <option value="todos" data-translate="filterAll">📋 Todos los usos</option>
+                    <option value="piel" data-translate="filterPiel">✨ Piel y Belleza</option>
+                    <option value="digestivo" data-translate="filterDigestivo">🌿 Digestivo</option>
+                    <option value="respiratorio" data-translate="filterRespiratorio">💨 Respiratorio</option>
+                    <option value="dolor" data-translate="filterDolor">💊 Dolor y Malestar</option>
+                </select>
+            </div>
+        </div>
+
+        <section id="catalogo" class="catalog-section">
+            <h2 class="section-title" data-translate="catalogTitle">
+                <i class="ph ph-plant"></i>
+                Catálogo de Plantas Medicinales
+            </h2>
+            
+            <div class="cards-grid" id="plantas-grid"></div>
+        </section>
+
+    </main>
+
+    <script src="js/translation-es-my.js"></script>
+    <script src="js/include-sidebar.js"></script>
+    <script src="script.js"></script> 
+
+</body>
+</html>
